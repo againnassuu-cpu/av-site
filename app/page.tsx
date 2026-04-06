@@ -37,6 +37,15 @@ export default function Home() {
         <h2>好みで探せるAV検索サービス</h2>
         <p>身長・カップ・タイプから女優を探す</p>
 
+        <p>
+このサイトは、人気女優のプロフィールや特徴、ジャンル別の傾向をまとめたデータベースです。
+気になる女優の情報を一覧・ランキング形式でチェックできます。
+</p>
+
+<p>
+随時データを更新しており、新人女優や注目作品の情報も追加予定です。
+</p>
+
         <div className="card-grid" style={{ marginTop: "24px" }}>
           {menuItems.map((item) => (
             <Link href={item.href} key={item.label}>
