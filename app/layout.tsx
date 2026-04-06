@@ -43,7 +43,7 @@ export default function RootLayout({
           }}
         >
           <p style={{ marginBottom: "8px" }}>
-            © 2026 AV Search Lab
+            © 2027 AV Search Lab
           </p>
 
           <a href="/privacy">プライバシーポリシー</a>
