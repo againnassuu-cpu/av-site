@@ -36,4 +36,5 @@ jobs:
         run: |
           sshpass -p "$SSH_PASSWORD" rsync -avz --delete \
             -e "ssh -p $SSH_PORT -o StrictHostKeyChecking=no" \
-            out/ "$SSH_USERNAME@$SSH_HOST:~/public_html/"
+            out/ "$SSH_USERNAME@$SSH_HOST:~/domains/adultcollecting.com/public_html/"
+            
