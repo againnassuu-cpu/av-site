@@ -236,4 +236,12 @@ footer a {
     gap: 10px;
     flex-wrap: wrap;
   }
+  .button {
+  background: red !important;
+  color: white !important;
+}
+
+h1 {
+  color: blue !important;
+}
 }
