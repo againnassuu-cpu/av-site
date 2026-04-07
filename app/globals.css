@@ -1,9 +1,10 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background: #0f0f0f;
-  color: #f5f5f5;
+  background: #ffffff;
+  color: #111111;
 }
 
 * {
@@ -21,44 +22,124 @@ main {
   padding: 24px;
 }
 
-.card-grid {
-  display: grid;
-  gap: 16px;
+header {
+  background: #ffffff;
+  border-bottom: 1px solid #eeeeee;
 }
 
-.card {
-  background: #161616;
-  border: 1px solid #333;
-  border-radius: 16px;
-  padding: 20px;
+nav {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+nav a {
+  font-size: 14px;
+  color: #333333;
+  transition: opacity 0.2s ease;
+}
+
+nav a:hover {
+  opacity: 0.7;
+}
+
+section {
+  margin-bottom: 32px;
+}
+
+p {
+  line-height: 1.7;
+  color: #444444;
 }
 
 h1 {
   color: #ff2d75;
+  font-size: 32px;
+  margin-bottom: 16px;
 }
 
-h2, h3 {
-  color: #ffffff;
+h2,
+h3 {
+  color: #111111;
+  margin-top: 0;
 }
 
-input, select, button {
-  padding: 8px;
-  border: 1px solid #444;
-  border-radius: 8px;
-  background: #111;
-  color: white;
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.card {
+  background: #f9f9f9;
+  border: 1px solid #eeeeee;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.button {
+  background: #f9f9f9;
+  border: 1px solid #eeeeee;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+  cursor: pointer;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  background: #fff5f8;
+}
+
+input,
+select,
+button {
+  padding: 10px 12px;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #111111;
+  font-size: 14px;
+}
+
+button {
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+button:hover {
+  background: #fff5f8;
+  border-color: #ffb3cc;
 }
 
 .card img {
-  object-fit: contain !important;
+  object-fit: cover !important;
   width: 100% !important;
-  height: auto !important;
-  max-height: none !important;
+  height: 220px !important;
+  border-radius: 12px;
+  display: block;
+  background: #f0f0f0;
 }
 
 .image-frame {
   width: 100%;
-  background: #111;
+  background: #f0f0f0;
   border-radius: 12px;
   margin-bottom: 12px;
   padding: 8px;
@@ -66,15 +147,93 @@ input, select, button {
 
 .image-frame img {
   width: 100%;
-  height: auto;        /* ←これが最重要 */
+  height: auto;
   display: block;
   border-radius: 12px;
 }
 
+footer {
+  margin-top: 40px;
+  padding: 20px 16px;
+  text-align: center;
+  border-top: 1px solid #eeeeee;
+  font-size: 14px;
+  color: #666666;
+  background: #ffffff;
+}
 
+footer a {
+  color: #ff2d75;
+}
+
+.rank-card {
+  background: #f9f9f9;
+  border: 1px solid #eeeeee;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.rank-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.rank-1 {
+  border: 2px solid #f5c542;
+}
+
+.rank-2 {
+  border: 2px solid #c0c0c0;
+}
+
+.rank-3 {
+  border: 2px solid #cd7f32;
+}
+
+.rank-number {
+  font-size: 14px;
+  font-weight: bold;
+  color: #ff2d75;
+  margin-bottom: 12px;
+}
+
+@media (max-width: 900px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
 @media (max-width: 700px) {
+  main {
+    padding: 16px;
+  }
+
+  h1 {
+    font-size: 26px;
+  }
+
   .card-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .card,
+  .button,
+  .rank-card {
+    padding: 14px;
+    border-radius: 14px;
+  }
+
+  .card img {
+    height: 180px !important;
+  }
+
+  nav {
+    gap: 10px;
+    flex-wrap: wrap;
   }
 }
