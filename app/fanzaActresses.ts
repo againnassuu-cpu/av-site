@@ -1,4 +1,4 @@
-import rawActresses from "./actresses_light.json";
+import rawActresses from "../data/actresses_light.json";
 
 export type RawActress = {
   fanzaActressId?: number;
@@ -61,7 +61,9 @@ function normalizeImageUrl(url?: string): string {
 
 function buildFanzaUrl(item: RawActress): string {
   if (item.fanzaDigitalUrl) return item.fanzaDigitalUrl;
-  return `https://video.dmm.co.jp/av/list/?key=${encodeURIComponent(`${item.name ?? ""} 単体`)}`;
+  return `https://video.dmm.co.jp/av/list/?key=${encodeURIComponent(
+    (item.name ?? "") + " 単体"
+  )}`;
 }
 
 function buildTypeTags(item: RawActress): string[] {

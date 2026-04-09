@@ -299,10 +299,10 @@ export default function RankingPage() {
               : "card";
 
           return (
-            <Link
-              href={`/actresses/${encodeURIComponent(item.name)}`}
-              key={`${item.name}-${index}`}
-            >
+           <Link
+  href={`/actresses/${item.fanzaActressId}`}
+  key={`${item.fanzaActressId}-${index}`}
+>
               <div className={rankClass}>
                 <p className="rank-number">#{rank}</p>
 

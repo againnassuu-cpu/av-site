@@ -262,9 +262,9 @@ export default function ActressesPage() {
       <div className="card-grid">
         {filtered.map((item, index) => (
           <Link
-            href={`/actresses/${encodeURIComponent(item.name)}`}
-            key={`${item.name}-${index}`}
-          >
+  href={`/actresses/${item.fanzaActressId}`}
+  key={`${item.fanzaActressId}-${index}`}
+>
             <div className="card">
               <img
                 src={item.image}

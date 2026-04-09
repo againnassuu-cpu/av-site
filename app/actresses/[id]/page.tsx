@@ -1,21 +1,21 @@
-import Image from "next/image";
 import { uniqueActresses } from "../../data";
 
 export function generateStaticParams() {
   return uniqueActresses.map((actress) => ({
-    name: actress.name,
+    id: String(actress.fanzaActressId),
   }));
 }
 
 export default async function ActressDetail({
   params,
 }: {
-  params: Promise<{ name: string }>;
+  params: Promise<{ id: string }>;
 }) {
-  const { name } = await params;
-  const decodedName = decodeURIComponent(name);
+  const { id } = await params;
 
-  const actress = uniqueActresses.find((a) => a.name === decodedName);
+  const actress = uniqueActresses.find(
+    (a) => String(a.fanzaActressId) === id
+  );
 
   if (!actress) {
     return (
@@ -25,17 +25,20 @@ export default async function ActressDetail({
     );
   }
 
-  const fanzaSearchUrl = `https://video.dmm.co.jp/av/list/?key=${encodeURIComponent(`${actress.name} 単体`)}`;
+  const fanzaUrl =
+    actress.fanzaUrl ||
+    `https://video.dmm.co.jp/av/list/?key=${encodeURIComponent(
+      actress.name + " 単体"
+    )}`;
+
   return (
     <main>
       <h1>{actress.name}</h1>
 
       <div className="card">
-        <Image
+        <img
           src={actress.image}
           alt={actress.name}
-          width={600}
-          height={800}
           style={{
             width: "100%",
             maxWidth: "600px",
@@ -43,20 +46,23 @@ export default async function ActressDetail({
             borderRadius: "12px",
             marginBottom: "16px",
             display: "block",
+            background: "#f0f0f0",
           }}
-          unoptimized
         />
 
         <p>身長: {actress.height}cm</p>
         <p>バスト: {actress.bust}cm</p>
         <p>カップ: {actress.cup}</p>
-        <p>タイプ: {actress.type.join(" / ")}</p>
+        <p>タイプ: {actress.type.length ? actress.type.join(" / ") : "-"}</p>
         <p>人気度: {actress.popularity}</p>
-        <p>誕生日: {actress.birthday}</p>
+        <p>誕生日: {actress.birthday || "-"}</p>
+        <p>出身地: {actress.prefectures || "-"}</p>
+        <p>趣味: {actress.hobby || "-"}</p>
+        <p>読み方: {actress.ruby || "-"}</p>
 
         <div style={{ marginTop: "20px" }}>
           <a
-            href={fanzaSearchUrl}
+            href={fanzaUrl}
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -69,7 +75,7 @@ export default async function ActressDetail({
               textDecoration: "none",
             }}
           >
-            FANZAで見る
+            FANZAで作品を見る
           </a>
         </div>
       </div>
