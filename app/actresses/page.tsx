@@ -1,7 +1,6 @@
 "use client";
 
-import Image from "next/image";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { uniqueActresses } from "../data";
 
@@ -19,53 +18,64 @@ export default function ActressesPage() {
 
   const [selectedType, setSelectedType] = useState("");
 
-  const filtered = uniqueActresses.filter((item) => {
-    let cupMatch = true;
+  const filtered = useMemo(() => {
+    return uniqueActresses.filter((item) => {
+      let cupMatch = true;
 
-    if (cupMode === "exact" && selectedCup !== "") {
-      cupMatch = !!item.cup && item.cup.toUpperCase() === selectedCup;
-    }
+      if (cupMode === "exact" && selectedCup !== "") {
+        cupMatch = !!item.cup && item.cup.toUpperCase() === selectedCup;
+      }
 
-    if (cupMode === "min" && minCup !== "") {
-      cupMatch =
-        !!item.cup &&
-        cupOrder.indexOf(item.cup.toUpperCase()) >= cupOrder.indexOf(minCup);
-    }
+      if (cupMode === "min" && minCup !== "") {
+        cupMatch =
+          !!item.cup &&
+          cupOrder.indexOf(item.cup.toUpperCase()) >= cupOrder.indexOf(minCup);
+      }
 
-    if (cupMode === "max" && maxCup !== "") {
-      cupMatch =
-        !!item.cup &&
-        cupOrder.indexOf(item.cup.toUpperCase()) <= cupOrder.indexOf(maxCup);
-    }
+      if (cupMode === "max" && maxCup !== "") {
+        cupMatch =
+          !!item.cup &&
+          cupOrder.indexOf(item.cup.toUpperCase()) <= cupOrder.indexOf(maxCup);
+      }
 
-    if (cupMode === "range" && minCup !== "" && maxCup !== "") {
-      const currentCupIndex = item.cup ? cupOrder.indexOf(item.cup.toUpperCase()) : -1;
-      cupMatch =
-        currentCupIndex >= cupOrder.indexOf(minCup) &&
-        currentCupIndex <= cupOrder.indexOf(maxCup);
-    }
+      if (cupMode === "range" && minCup !== "" && maxCup !== "") {
+        const currentCupIndex = item.cup ? cupOrder.indexOf(item.cup.toUpperCase()) : -1;
+        cupMatch =
+          currentCupIndex >= cupOrder.indexOf(minCup) &&
+          currentCupIndex <= cupOrder.indexOf(maxCup);
+      }
 
-    const typeMatch =
-      selectedType === "" || item.type.includes(selectedType);
+      const typeMatch =
+        selectedType === "" || item.type.includes(selectedType);
 
-    let heightMatch = true;
+      let heightMatch = true;
 
-    if (heightMode === "min" && minHeight !== "") {
-      heightMatch = item.height >= Number(minHeight);
-    }
+      if (heightMode === "min" && minHeight !== "") {
+        heightMatch = item.height >= Number(minHeight);
+      }
 
-    if (heightMode === "max" && maxHeight !== "") {
-      heightMatch = item.height <= Number(maxHeight);
-    }
+      if (heightMode === "max" && maxHeight !== "") {
+        heightMatch = item.height <= Number(maxHeight);
+      }
 
-    if (heightMode === "range" && minHeight !== "" && maxHeight !== "") {
-      heightMatch =
-        item.height >= Number(minHeight) &&
-        item.height <= Number(maxHeight);
-    }
+      if (heightMode === "range" && minHeight !== "" && maxHeight !== "") {
+        heightMatch =
+          item.height >= Number(minHeight) &&
+          item.height <= Number(maxHeight);
+      }
 
-    return cupMatch && typeMatch && heightMatch;
-  });
+      return cupMatch && typeMatch && heightMatch;
+    });
+  }, [
+    selectedCup,
+    minCup,
+    maxCup,
+    cupMode,
+    minHeight,
+    maxHeight,
+    heightMode,
+    selectedType,
+  ]);
 
   return (
     <main className="min-h-screen bg-white text-black p-6">
@@ -90,21 +100,11 @@ export default function ActressesPage() {
             className="border rounded px-3 py-2"
           >
             <option value="">カップ</option>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-            <option value="E">E</option>
-            <option value="F">F</option>
-            <option value="G">G</option>
-            <option value="H">H</option>
-            <option value="I">I</option>
-            <option value="J">J</option>
-            <option value="K">K</option>
-            <option value="L">L</option>
-            <option value="M">M</option>
-            <option value="N">N</option>
-            <option value="O">O</option>
+            {cupOrder.map((cup) => (
+              <option key={cup} value={cup}>
+                {cup}
+              </option>
+            ))}
           </select>
         )}
 
@@ -115,21 +115,11 @@ export default function ActressesPage() {
             className="border rounded px-3 py-2"
           >
             <option value="">カップ以上</option>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-            <option value="E">E</option>
-            <option value="F">F</option>
-            <option value="G">G</option>
-            <option value="H">H</option>
-            <option value="I">I</option>
-            <option value="J">J</option>
-            <option value="K">K</option>
-            <option value="L">L</option>
-            <option value="M">M</option>
-            <option value="N">N</option>
-            <option value="O">O</option>
+            {cupOrder.map((cup) => (
+              <option key={cup} value={cup}>
+                {cup}
+              </option>
+            ))}
           </select>
         )}
 
@@ -140,21 +130,11 @@ export default function ActressesPage() {
             className="border rounded px-3 py-2"
           >
             <option value="">カップ以下</option>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-            <option value="E">E</option>
-            <option value="F">F</option>
-            <option value="G">G</option>
-            <option value="H">H</option>
-            <option value="I">I</option>
-            <option value="J">J</option>
-            <option value="K">K</option>
-            <option value="L">L</option>
-            <option value="M">M</option>
-            <option value="N">N</option>
-            <option value="O">O</option>
+            {cupOrder.map((cup) => (
+              <option key={cup} value={cup}>
+                {cup}
+              </option>
+            ))}
           </select>
         )}
 
@@ -166,21 +146,11 @@ export default function ActressesPage() {
               className="border rounded px-3 py-2"
             >
               <option value="">最小カップ</option>
-              <option value="A">A</option>
-              <option value="B">B</option>
-              <option value="C">C</option>
-              <option value="D">D</option>
-              <option value="E">E</option>
-              <option value="F">F</option>
-              <option value="G">G</option>
-              <option value="H">H</option>
-              <option value="I">I</option>
-              <option value="J">J</option>
-              <option value="K">K</option>
-              <option value="L">L</option>
-              <option value="M">M</option>
-              <option value="N">N</option>
-              <option value="O">O</option>
+              {cupOrder.map((cup) => (
+                <option key={cup} value={cup}>
+                  {cup}
+                </option>
+              ))}
             </select>
 
             <select
@@ -189,21 +159,11 @@ export default function ActressesPage() {
               className="border rounded px-3 py-2"
             >
               <option value="">最大カップ</option>
-              <option value="A">A</option>
-              <option value="B">B</option>
-              <option value="C">C</option>
-              <option value="D">D</option>
-              <option value="E">E</option>
-              <option value="F">F</option>
-              <option value="G">G</option>
-              <option value="H">H</option>
-              <option value="I">I</option>
-              <option value="J">J</option>
-              <option value="K">K</option>
-              <option value="L">L</option>
-              <option value="M">M</option>
-              <option value="N">N</option>
-              <option value="O">O</option>
+              {cupOrder.map((cup) => (
+                <option key={cup} value={cup}>
+                  {cup}
+                </option>
+              ))}
             </select>
           </>
         )}
@@ -295,25 +255,28 @@ export default function ActressesPage() {
         </button>
       </div>
 
-         <p className="mb-4 text-sm text-gray-600">
+      <p className="mb-4 text-sm text-gray-600">
         {filtered.length}件見つかりました
       </p>
 
       <div className="card-grid">
         {filtered.map((item, index) => (
-          <Link href={`/actresses/${item.name}`} key={`${item.name}-${index}`}>
+          <Link
+            href={`/actresses/${encodeURIComponent(item.name)}`}
+            key={`${item.name}-${index}`}
+          >
             <div className="card">
-              <Image
+              <img
                 src={item.image}
                 alt={item.name}
-                width={400}
-                height={240}
                 style={{
                   width: "100%",
                   height: "220px",
                   objectFit: "cover",
                   borderRadius: "12px",
                   marginBottom: "12px",
+                  display: "block",
+                  background: "#f0f0f0",
                 }}
               />
               <h2>{item.name}</h2>

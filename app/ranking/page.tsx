@@ -125,7 +125,7 @@ export default function RankingPage() {
     <main>
       <h1>ランキング</h1>
       <p>検索・絞り込み・並び替えつきのランキングページ</p>
-      <p style={{ marginBottom: "20px", color: "#ccc" }}>
+      <p style={{ marginBottom: "20px", color: "#666" }}>
         人気順・身長順・カップ範囲・タイプ別で女優を探せます
       </p>
 
@@ -154,63 +154,33 @@ export default function RankingPage() {
         {cupMode === "exact" && (
           <select value={selectedCup} onChange={(e) => setSelectedCup(e.target.value)}>
             <option value="">カップ</option>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-            <option value="E">E</option>
-            <option value="F">F</option>
-            <option value="G">G</option>
-            <option value="H">H</option>
-            <option value="I">I</option>
-            <option value="J">J</option>
-            <option value="K">K</option>
-            <option value="L">L</option>
-            <option value="M">M</option>
-            <option value="N">N</option>
-            <option value="O">O</option>
+            {cupOrder.map((cup) => (
+              <option key={cup} value={cup}>
+                {cup}
+              </option>
+            ))}
           </select>
         )}
 
         {cupMode === "min" && (
           <select value={minCup} onChange={(e) => setMinCup(e.target.value)}>
             <option value="">カップ以上</option>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-            <option value="E">E</option>
-            <option value="F">F</option>
-            <option value="G">G</option>
-            <option value="H">H</option>
-            <option value="I">I</option>
-            <option value="J">J</option>
-            <option value="K">K</option>
-            <option value="L">L</option>
-            <option value="M">M</option>
-            <option value="N">N</option>
-            <option value="O">O</option>
+            {cupOrder.map((cup) => (
+              <option key={cup} value={cup}>
+                {cup}
+              </option>
+            ))}
           </select>
         )}
 
         {cupMode === "max" && (
           <select value={maxCup} onChange={(e) => setMaxCup(e.target.value)}>
             <option value="">カップ以下</option>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-            <option value="E">E</option>
-            <option value="F">F</option>
-            <option value="G">G</option>
-            <option value="H">H</option>
-            <option value="I">I</option>
-            <option value="J">J</option>
-            <option value="K">K</option>
-            <option value="L">L</option>
-            <option value="M">M</option>
-            <option value="N">N</option>
-            <option value="O">O</option>
+            {cupOrder.map((cup) => (
+              <option key={cup} value={cup}>
+                {cup}
+              </option>
+            ))}
           </select>
         )}
 
@@ -218,43 +188,23 @@ export default function RankingPage() {
           <>
             <select value={minCup} onChange={(e) => setMinCup(e.target.value)}>
               <option value="">最小カップ</option>
-              <option value="A">A</option>
-              <option value="B">B</option>
-              <option value="C">C</option>
-              <option value="D">D</option>
-              <option value="E">E</option>
-              <option value="F">F</option>
-              <option value="G">G</option>
-              <option value="H">H</option>
-              <option value="I">I</option>
-              <option value="J">J</option>
-              <option value="K">K</option>
-              <option value="L">L</option>
-              <option value="M">M</option>
-              <option value="N">N</option>
-              <option value="O">O</option>
+              {cupOrder.map((cup) => (
+                <option key={cup} value={cup}>
+                  {cup}
+                </option>
+              ))}
             </select>
 
             <select value={maxCup} onChange={(e) => setMaxCup(e.target.value)}>
               <option value="">最大カップ</option>
-              <option value="A">A</option>
-              <option value="B">B</option>
-              <option value="C">C</option>
-              <option value="D">D</option>
-              <option value="E">E</option>
-              <option value="F">F</option>
-              <option value="G">G</option>
-              <option value="H">H</option>
-              <option value="I">I</option>
-              <option value="J">J</option>
-              <option value="K">K</option>
-              <option value="L">L</option>
-              <option value="M">M</option>
-              <option value="N">N</option>
-              <option value="O">O</option>
+              {cupOrder.map((cup) => (
+                <option key={cup} value={cup}>
+                  {cup}
+                </option>
+              ))}
             </select>
           </>
-                )}
+        )}
 
         <select
           value={heightMode}
@@ -349,7 +299,10 @@ export default function RankingPage() {
               : "card";
 
           return (
-            <Link href={`/actresses/${item.name}`} key={`${item.name}-${index}`}>
+            <Link
+              href={`/actresses/${encodeURIComponent(item.name)}`}
+              key={`${item.name}-${index}`}
+            >
               <div className={rankClass}>
                 <p className="rank-number">#{rank}</p>
 
@@ -358,11 +311,12 @@ export default function RankingPage() {
                   alt={item.name}
                   style={{
                     width: "100%",
-                    height: "auto",
+                    height: "220px",
+                    objectFit: "cover",
                     borderRadius: "12px",
                     marginBottom: "12px",
                     display: "block",
-                    background: "#111",
+                    background: "#f0f0f0",
                   }}
                 />
 
