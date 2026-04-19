@@ -1,4 +1,4 @@
-import rawActresses from "../data/actresses_light.json";
+import rawActresses from "@/data/actresses_light.json";
 
 export type RawActress = {
   fanzaActressId?: number;
@@ -15,6 +15,8 @@ export type RawActress = {
   prefectures?: string;
   imageUrl?: string;
   fanzaDigitalUrl?: string;
+  sampleImageUrl?: string;
+  sampleItemUrl?: string;
 };
 
 export type Actress = {
@@ -36,6 +38,8 @@ export type Actress = {
   hobby: string;
   prefectures: string;
   fanzaUrl: string;
+  sampleImageUrl: string;
+  sampleItemUrl: string;
 };
 
 function calcAge(birthday?: string): number {
@@ -66,13 +70,18 @@ function buildFanzaUrl(item: RawActress): string {
   )}`;
 }
 
+function normalizeSampleImageUrl(url?: string): string {
+  if (!url) return "";
+  return url.replace(/^http:\/\//, "https://");
+}
+
 function buildTypeTags(item: RawActress): string[] {
   const tags: string[] = [];
   const age = calcAge(item.birthday);
 
   if (item.cup) {
     const cup = item.cup.toUpperCase();
-    if (["G", "H", "I", "J", "K"].includes(cup)) tags.push("巨乳");
+    if (["G", "H", "I", "J", "K", "L", "M", "N", "O"].includes(cup)) tags.push("巨乳");
     if (["C", "D", "E", "F"].includes(cup)) tags.push("美乳");
   }
 
@@ -110,6 +119,8 @@ export const fanzaActresses: Actress[] = (rawActresses as RawActress[]).map((ite
     hobby: item.hobby ?? "",
     prefectures: item.prefectures ?? "",
     fanzaUrl: buildFanzaUrl(item),
+    sampleImageUrl: normalizeSampleImageUrl(item.sampleImageUrl),
+    sampleItemUrl: item.sampleItemUrl ?? "",
   };
 });
 
