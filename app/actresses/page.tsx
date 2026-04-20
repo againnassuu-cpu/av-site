@@ -30,8 +30,7 @@ export default function ActressesPage() {
   const [sortType, setSortType] = useState(
     searchParams.get("sortType") ?? "popular"
   );
-  const [results, setResults] = useState<typeof uniqueActresses>([]);
-  const [searched, setSearched] = useState(false);
+
   useEffect(() => {
     const savedY = sessionStorage.getItem("actressesScrollY");
     if (savedY) {
@@ -131,6 +130,18 @@ export default function ActressesPage() {
     }
     return arr;
   }, [filtered, sortType]);
+const hasCondition =
+
+  selectedType !== "" ||
+
+  heightMode !== "none" ||
+
+  cupMode !== "none";
+
+const results = hasCondition ? sorted.slice(0, 30) : [];
+
+const searched = hasCondition;
+
   const currentConditionText = useMemo(() => {
     const parts: string[] = [];
     if (heightMode === "min") {
@@ -177,13 +188,7 @@ export default function ActressesPage() {
       selectedType !== "" ||
       heightMode !== "none" ||
       cupMode !== "none";
-    if (hasCondition) {
-      setResults(sorted.slice(0, 30));
-      setSearched(true);
-    } else {
-      setResults([]);
-      setSearched(false);
-    }
+   
   }, [sorted, selectedType, heightMode, cupMode]);
   const scrollToSearchPanel = () => {
     const el = document.getElementById("search-panel");
@@ -202,8 +207,7 @@ export default function ActressesPage() {
     setCupMin("C");
     setCupMax("F");
     setSortType("popular");
-    setResults([]);
-    setSearched(false);
+
   };
   useEffect(() => {
     const timer = setTimeout(() => {
