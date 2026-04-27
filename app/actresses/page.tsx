@@ -1,5 +1,5 @@
 import ActressesClient from "@/app/actresses/ActressesClient";
-export default function page() {
+export default function ActressesPage() {
 
   return <ActressesClient />;
 }
