@@ -8,7 +8,6 @@ import { uniqueActresses } from "../data";
 const cupOrder = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"] as const;
 type FilterMode = "none" | "min" | "max" | "range" | "exact";
 export default function ActressesPage() {
-    return <div> test </div>
   const router = useRouter();
   const searchParams = useSearchParams();
   const [selectedType, setSelectedType] = useState(searchParams.get("type") ?? "");
